@@ -3,5 +3,5 @@ RUN mkdir -p /Tiddly
 COPY . /Tiddly/
 WORKDIR /Tiddly/
 RUN npm install
-EXPOSE 1000
+EXPOSE 3000
 CMD ["node", "server"]
