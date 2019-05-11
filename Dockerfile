@@ -5,5 +5,3 @@ WORKDIR /tiddly/
 RUN npm install -g tiddlywiki
 RUN tiddlywiki tiddlywikipato --init server
 RUN tiddlywiki tiddlywikipato --listen
-EXPOSE 3000
-CMD ["node", "server"]
