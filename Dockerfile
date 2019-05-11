@@ -1,7 +1,13 @@
-FROM node:10
-RUN mkdir -p /tiddly
-COPY . /tiddly/
-WORKDIR /tiddly/
+FROM node:alpine
 RUN npm install -g tiddlywiki
-RUN tiddlywiki tiddlywikipato --init server
-RUN tiddlywiki tiddlywikipato --listen
+# Setup wiki volume
+VOLUME /var/lib/tiddlywiki
+WORKDIR /var/lib/tiddlywiki
+
+# Add init-and-run script
+ADD tiddlyweb_host /tiddlyweb_host_template
+ADD init-and-run-wiki /usr/local/bin/init-and-run-wiki
+
+# Meta
+CMD ["/usr/local/bin/init-and-run-wiki"]
+EXPOSE 8080
