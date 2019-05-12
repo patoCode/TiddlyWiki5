@@ -3,9 +3,7 @@ RUN mkdir /src
 WORKDIR /src
 RUN npm install -g tiddlywiki
 EXPOSE 8080
-
-CMD tiddlywiki wikidemo --init server
-CMD tiddlywiki wikidemo --listen
-
+CMD ["node", "tiddlywiki wikidemo --init server"]
+CMD ["node","tiddlywiki wikidemo --listen"]
 
 
