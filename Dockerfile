@@ -11,5 +11,5 @@ ADD tiddlyweb_host /tiddlyweb_host_template
 ADD init-and-run-wiki /usr/local/bin/init-and-run-wiki
 
 # Meta
-CMD ["/usr/local/bin/init-and-run-wiki"]
+CMD sudo ["/usr/local/bin/init-and-run-wiki"]
 EXPOSE 8080
