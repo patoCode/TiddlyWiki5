@@ -1,10 +1,19 @@
 FROM node:alpine
-RUN mkdir -p /opt/app
-WORKDIR /opt/app
-COPY package.json .
-RUN npm install --quiet
-RUN npm install -g tiddlywiki
-RUN tiddlywiki mywiki --init server
-RUN tiddlywiki mywiki --listen
+ENV TIDDLYWIKI_VERSION=5.1.19
+
+ARG SOURCE_COMMIT
+LABEL maintainer="Aaron Bull Schaefer <aaron@elasticdog.com>"
+LABEL source="https://github.com/elasticdog/tiddlywiki-docker"
+LABEL source-commit="${SOURCE_COMMIT:-unknown}"
+
+# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#handling-kernel-signals
+RUN apk add --no-cache tini
+RUN npm install -g tiddlywiki@${TIDDLYWIKI_VERSION}
+
 EXPOSE 8080
-CMD ["node","server"]
+
+VOLUME /tiddlywiki
+WORKDIR /tiddlywiki
+
+ENTRYPOINT ["/sbin/tini", "--", "tiddlywiki"]
+CMD ["--help"]CMD ["node","server"]
